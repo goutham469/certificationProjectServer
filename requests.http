@@ -1,0 +1,116 @@
+POST http://localhost:4000/user/createUser
+Content-Type: application/json
+
+{
+    "email":"goutham",
+    "password":"123456"
+}
+###
+GET http://localhost:4000/user/getUsers
+###
+GET http://localhost:4000/user/checkUser/?name=gouthamreddy
+###
+POST http://localhost:4000/user/checkPassword/?name=goutham
+Content-Type: application/json
+
+{
+    "password":"123456"
+}
+
+
+
+### Authors requests
+POST http://localhost:4000/Author/createAuthor
+Content-Type: application/json
+
+{
+    "email":"reddy",
+    "password":"123456"
+}
+###
+GET http://localhost:4000/Author/getAuthors
+###
+GET http://localhost:4000/Author/checkAuthor/?name=reddy
+###
+POST http://localhost:4000/Author/checkPassword/?name=gouth@gmail.com
+Content-Type: application/json
+
+{
+    "password":"123"
+}
+
+
+
+### articles requests
+POST http://localhost:4000/articles/postArticle
+Content-Type: application/json
+
+{
+    "articleId":1,
+    "title":"java technology",
+    "categery":"technology",
+    "author":"goutham",
+    "content":"java ia an object oriented programming launguage",
+    "dataOfCreation":"mm/hh : dd/mm/yyyy",
+    "lastUpdate":"mm/hh : dd/mm/yyyy",
+    "lastVersions":[{"content":"java is a programmimg launguage","dateOfUpdate":"10/06/2022"}],
+    "views":0,
+    "comments":[{"comment":"is java OOP?","userName":"raju@gmail.com","upVotes":0,"downVotes":0,"comments":[]}],
+    "upVotes":0,
+    "downVotes":0
+}
+
+### articles requests
+POST http://localhost:4000/articles/postArticle
+Content-Type: application/json
+
+{
+    "articleId": 2,
+    "title": "Python Programming",
+    "category": "technology",
+    "author":"raju",
+    "content": "Python is a high-level, interpreted programming language known for its simplicity and readability.",
+    "dateOfCreation": "mm/hh : dd/mm/yyyy",
+    "lastUpdate": "mm/hh : dd/mm/yyyy",
+    "lastVersions": [{"content": "Python is a versatile programming language.", "dateOfUpdate": "10/06/2022"}],
+    "views": 0,
+    "comments": [{"comment": "What are some popular Python frameworks?", "userName": "susan@gmail.com", "upVotes": 0, "downVotes": 0, "comments": []}],
+    "upVotes": 0,
+    "downVotes": 0
+}
+
+### articles requests
+POST http://localhost:4000/articles/postArticle
+Content-Type: application/json
+
+{ 
+    "articleId": 3,
+    "title": "C Programming",
+    "category": "technology",
+    "author":"reddy",
+    "content": "C is a procedural programming language developed by Dennis Ritchie in 1972.",
+    "dateOfCreation": "mm/hh : dd/mm/yyyy",
+    "lastUpdate": "mm/hh : dd/mm/yyyy",
+    "lastVersions": [{"content": "C programming language was designed for system programming.", "dateOfUpdate": "10/06/2022"}],
+    "views": 0,
+    "comments": [{"comment": "What are some advantages of using C?", "userName": "alex@gmail.com", "upVotes": 0, "downVotes": 0, "comments": []}],
+    "upVotes": 0,
+    "downVotes": 0
+}
+
+
+###
+GET http://localhost:4000/articles/getAll
+###
+GET http://localhost:4000/articles/getByAuthorName/?name=goutham
+###
+PUT http://localhost:4000/articles/PostComment/?articleId=28
+Content-Type: application/json
+
+{
+    "comment": "Hi",
+    "userName": "gouth@gmail.com"
+}
+###
+GET http://localhost:4000/articles/getArticleId
+
