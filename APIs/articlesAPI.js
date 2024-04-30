@@ -64,9 +64,20 @@ articlesAPI.put('/PostComment',async (req,res)=>{
 articlesAPI.get('/getArticleId',async (req,res)=>{
     let articleCount = req.app.get('articleCount')
     let data = await articleCount.find().toArray()
-    data = data[0].count;
-    await articleCount.updateOne({"count":data},{$set:{"count":data+1}})
-    res.send({"status":"true","count":data})
+    if(data)
+    {
+        if(data[0])
+        {
+            if(data[0].count)
+            {
+                data = data[0].count;
+                await articleCount.updateOne({"count":data},{$set:{"count":data+1}})
+                res.send({"status":"true","count":data})
+            }else{res.send({"status":"false"})}
+        }else{res.send({"status":"false"})}
+    }else{res.send({"status":"false"})}
+    
+    
 
 })
 

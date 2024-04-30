@@ -14,7 +14,7 @@ app.use(cors())
 
 // let dburl = process.env.DBURL;
 
-mclient.connect("mongodb://localhost:27017").then(client=>{
+mclient.connect(`${process.env.DATA_BASE_CONNECTION_URL}`).then(client=>{
     let DB = client.db('courseProject')
     let usersCollection = DB.collection('users')
     let authorsCollection = DB.collection('authors')
@@ -33,9 +33,9 @@ app.get('/',(req,res)=>{
 
 app.use('/user',usersAPI)
 app.use('/author',authorsAPI)
-app.use('/articles',articlesAPI)
+app.use('/articles',articlesAPI) 
 
 
 
 
-app.listen(4000,()=>{console.log("server running on port 4000...")})
+app.listen(4000,()=>{console.log(`server running on port ${process.env.PORT}...`)})
