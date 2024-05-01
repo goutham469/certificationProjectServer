@@ -33,7 +33,7 @@ app.get('/',(req,res)=>{
 
 app.use('/user',usersAPI)
 app.use('/author',authorsAPI)
-app.use('/articles',articlesAPI) 
+app.use('/articles',articlesAPI)
 
 
 

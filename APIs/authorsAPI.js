@@ -58,4 +58,16 @@ authorsAPI.post('/checkPassword',async (req,res)=>{
     else{res.send({"status":"false","message":"user not found in database"})}
 })
 
+authorsAPI.get('/checkAuthorName',async (req,res)=>{
+    const authorsCollection = req.app.get('authorsCollection')
+    let data = await authorsCollection.find({"email":req.query.email}).toArray()
+    if(data)
+    {
+        if(data[0])
+        {
+            res.send({"status":"true","existence":"exists"})
+        }else{res.send({"status":"true","existence":"false"})}
+    }else{res.send({"status":"true","existence":"false"})}
+})
+
 module.exports = authorsAPI

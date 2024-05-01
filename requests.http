@@ -40,6 +40,8 @@ Content-Type: application/json
 {
     "password":"123"
 }
+###
+GET http://localhost:4000/Author/checkAuthorName/?email=gowutham
 
 
 
