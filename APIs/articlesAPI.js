@@ -77,8 +77,18 @@ articlesAPI.get('/getArticleId',async (req,res)=>{
         }else{res.send({"status":"false"})}
     }else{res.send({"status":"false"})}
     
-    
+})
+articlesAPI.get('/getArticleById',async (req,res)=>{
+    // console.log(Number(req.query.id));
+    let articlesCollection = req.app.get('articlesCollection')
+
+    let response = await articlesCollection.find({"articleId":Number(req.query.id)}).toArray();
+    if(response[0])
+    {
+        res.send({"status":"true",article:response[0]})
+    }else{res.send({"status":"false"})}
 
 })
+
 
 module.exports = articlesAPI;

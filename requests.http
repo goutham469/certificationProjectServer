@@ -16,6 +16,8 @@ Content-Type: application/json
 {
     "password":"123456"
 }
+###
+GET http://localhost:4000/user/getPassword/?email=goutham
 
 
 
@@ -113,4 +115,6 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:4000/articles/getArticleId
+###
+GET http://localhost:4000/articles/getArticleById/?id=2
 

@@ -58,4 +58,11 @@ usersAPI.post('/checkPassword',async (req,res)=>{
     else{res.send({"status":"false","message":"user not found in database"})}
 })
 
+usersAPI.get('/getPassword',async (req,res)=>{
+    console.log(`${req.query.email} requested for Password`);
+    let usersCollection = req.app.get('usersCollection')
+    let data = await usersCollection.find({"email":req.query.email}).toArray();
+    res.send({"status":"true",password:data[0].password})
+})
+
 module.exports = usersAPI
