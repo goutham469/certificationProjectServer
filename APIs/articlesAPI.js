@@ -90,5 +90,25 @@ articlesAPI.get('/getArticleById',async (req,res)=>{
 
 })
 
+articlesAPI.get('/upVote',async (req,res)=>{
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.updateOne({ "articleId": Number(req.query.id )},{ $inc: { "upVotes": 1 } })
+    res.send({"status":"successful"})
+      
+})
+
+articlesAPI.get('/downVote',async (req,res)=>{
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.updateOne({ "articleId": Number(req.query.id )},{ $inc: { "downVotes": 1 } })
+    res.send({"status":"successful"})
+      
+})
+
+articlesAPI.get('/IncrementView',async (req,res)=>{
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.updateOne({ "articleId": Number(req.query.id )},{ $inc: { "views": 1 } })
+    res.send({"status":"successful"})
+      
+})
 
 module.exports = articlesAPI;

@@ -119,4 +119,9 @@ Content-Type: application/json
 GET http://localhost:4000/articles/getArticleId
 ###
 GET http://localhost:4000/articles/getArticleById/?id=2
-
+###
+GET http://localhost:4000/articles/IncrementView/?id=2
+###
+GET http://localhost:4000/articles/upVote/?id=2
+###
+GET http://localhost:4000/articles/downVote/?id=2
