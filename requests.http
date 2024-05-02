@@ -108,7 +108,7 @@ GET http://localhost:4000/articles/getAll
 ###
 GET http://localhost:4000/articles/getByAuthorName/?name=goutham
 ###
-PUT http://localhost:4000/articles/PostComment/?articleId=28
+PUT https://certificationprojectserver.onrender.com/articles/PostComment/?articleId=3
 Content-Type: application/json
 
 {
@@ -116,9 +116,11 @@ Content-Type: application/json
     "userName": "gouth@gmail.com"
 }
 ###
+GET https://certificationprojectserver.onrender.com/articles/getArticleId
+###
 GET http://localhost:4000/articles/getArticleId
 ###
-GET http://localhost:4000/articles/getArticleById/?id=2
+GET http://localhost:4000/articles/getArticleById/?id=105
 ###
 GET http://localhost:4000/articles/IncrementView/?id=2
 ###
