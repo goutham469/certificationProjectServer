@@ -70,4 +70,57 @@ authorsAPI.get('/checkAuthorName',async (req,res)=>{
     }else{res.send({"status":"true","existence":"false"})}
 })
 
+authorsAPI.get('/getActivity',async (req,res)=>{
+    const authorsCollection = req.app.get('authorsCollection')
+
+    let data = await authorsCollection.find({"email":req.query.email}).toArray()
+    if(data)
+    {
+        if(data[0])
+        {
+            console.log(data[0])
+            data = data[0]
+            let obj = {
+                "upVotedArticles":data.upVotedArticles,
+                "downVotedArticles":data.downVotedArticles
+            }
+            res.send({"status":"true","data":obj})
+        }else{res.send({"status":"true","data":"false"})}
+    }else{res.send({"status":"true","data":"false"})}
+})
+
+authorsAPI.put('/UpdateActivityUpvotes',async (req,res)=>{
+    const authorsCollection = req.app.get('authorsCollection')
+
+    console.log(req.body)
+
+    if(req.body.type == "add")
+    {
+        await authorsCollection.updateOne({"email":req.query.email},{$push:{"upVotedArticles":req.body.articleId}})
+    }
+    else if(req.body.type == 'delete')
+    {
+        await authorsCollection.updateOne({"email": req.query.email },{ $pull:{"upVotedArticles": req.body.articleId}});
+    }
+
+    res.send({"status":"true"})
+})
+
+authorsAPI.put('/UpdateActivityDownvotes',async (req,res)=>{
+    const authorsCollection = req.app.get('authorsCollection')
+
+    console.log(req.body)
+
+    if(req.body.type == "add")
+    {
+        await authorsCollection.updateOne({"email":req.query.email},{$push:{"downVotedArticles":req.body.articleId}})
+    }
+    else if(req.body.type == 'delete')
+    {
+        await authorsCollection.updateOne({"email": req.query.email },{ $pull:{"downVotedArticles": req.body.articleId}});
+    }
+
+    res.send({"status":"true"})
+})
+
 module.exports = authorsAPI
