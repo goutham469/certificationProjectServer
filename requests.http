@@ -165,7 +165,7 @@ GET https://certificationprojectserver.onrender.com/articles/getArticleId
 ###
 GET http://localhost:4000/articles/getArticleId
 ###
-GET http://localhost:4000/articles/getArticleById/?id=2
+GET http://localhost:4000/articles/getArticleById/?id=118
 
 
 
@@ -188,7 +188,7 @@ POST http://localhost:4000/articles/ChangeTitle
 Content-Type: application/json
 
 {
-    "articleId":105,
+    "articleId":118,
     "changedTitle":"HTML5"
 }
 ###
@@ -196,7 +196,7 @@ POST http://localhost:4000/articles/ChangeCategory
 Content-Type: application/json
 
 {
-    "articleId":105,
+    "articleId":118,
     "changedCategory":"web technologies"
 }
 ###
@@ -204,7 +204,7 @@ POST http://localhost:4000/articles/ChangeContent
 Content-Type: application/json
 
 {
-    "articleId":105,
+    "articleId":118,
     "changedContent":"HTML : hypertext markup launguage ."
 }
 ###
@@ -212,5 +212,20 @@ POST http://localhost:4000/articles/DeleteArticle
 Content-Type: application/json
 
 {
-    "articleId":105
+    "articleId":118
+}
+###
+POST http://localhost:4000/articles/updateLastEdit
+Content-Type: application/json
+
+{
+    "articleId":117
+}
+
+###
+POST http://localhost:4000/user/getPublicationData
+Content-Type: application/json
+
+{
+    "email":"uppinurigouthamreddy@gmail.com"
 }

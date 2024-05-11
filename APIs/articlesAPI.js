@@ -26,6 +26,12 @@ articlesAPI.post('/postArticle',async (req,res)=>{
 articlesAPI.get('/getAll',async (req,res)=>{
     let articlesCollection = req.app.get('articlesCollection')
     let data = await articlesCollection.find().toArray()
+
+    for(let x in data)
+    {
+        await articlesCollection.updateOne({ "articleId": Number(data[x].articleId)},{ $inc: { "views": 0.5 } })
+    }
+
     res.send({"status":"success","articles":data})
 })
 
@@ -85,6 +91,8 @@ articlesAPI.get('/getArticleById',async (req,res)=>{
     let articlesCollection = req.app.get('articlesCollection')
 
     let response = await articlesCollection.find({"articleId":Number(req.query.id)}).toArray();
+    await articlesCollection.updateOne({ "articleId": Number(req.query.id )},{ $inc: { "views": 1 } })
+
     if(response[0])
     {
         res.send({"status":"true",article:response[0]})
@@ -122,7 +130,7 @@ articlesAPI.get('/downVoteNegative',async (req,res)=>{
 
 articlesAPI.get('/IncrementView',async (req,res)=>{
     let articlesCollection = req.app.get('articlesCollection')
-    await articlesCollection.updateOne({ "articleId": Number(req.query.id )},{ $inc: { "views": -1 } })
+    await articlesCollection.updateOne({ "articleId": Number(req.query.id )},{ $inc: { "views": 1 } })
     res.send({"status":"successful"})
 })
 
@@ -130,7 +138,7 @@ articlesAPI.post('/ChangeTitle',async (req,res)=>{
     console.log(req.body)
     let articlesCollection = req.app.get('articlesCollection')
     await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"title":req.body.changedTitle}})
-    res.send({"status":"true"})
+    res.send({"status":"title changed ->true"})
 })
 
 
@@ -138,14 +146,14 @@ articlesAPI.post('/ChangeCategory',async (req,res)=>{
     console.log(req.body)
     let articlesCollection = req.app.get('articlesCollection')
     await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"category":req.body.changedCategory}})
-    res.send({"status":"true"})
+    res.send({"status":"category changed ->true"})
 })
 
 articlesAPI.post('/ChangeContent',async (req,res)=>{
     console.log(req.body)
     let articlesCollection = req.app.get('articlesCollection')
     await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"content":req.body.changedContent}})
-    res.send({"status":"true"})
+    res.send({"status":"content changed ->true"})
 })
 
 articlesAPI.post('/DeleteArticle',async (req,res)=>{
@@ -154,5 +162,17 @@ articlesAPI.post('/DeleteArticle',async (req,res)=>{
     await articlesCollection.deleteOne({"articleId":req.body.articleId})
     res.send({"status":"true"})
 })
+
+articlesAPI.post('/updateLastEdit',async(req,res)=>{
+    let currentDate = new Date
+    const articlesCollection = req.app.get('articlesCollection')
+    // let last_edited = `${current_date.getSeconds()}-${current_date.getMinutes()}-${current_date.getHours()}-${current_date.getDay()}-${current_date.getMonth()}-${current_date.getFullYear()}`
+    // let last_edited = current_date.toDateString().substring(4,)+"---"+current_date.toTimeString().substring(0,8)
+    let cur_date = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()} - ${currentDate.getDate()}/${currentDate.getMonth()}/${currentDate.getFullYear()}`
+    console.log(`article with id : ${req.body.articleId} , last updated on ${cur_date} .`)
+    await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"lastUpdate":cur_date}})
+    res.send({"status":"true"})
+})
+
 
 module.exports = articlesAPI;

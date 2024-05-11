@@ -65,4 +65,69 @@ usersAPI.get('/getPassword',async (req,res)=>{
     res.send({"status":"true",password:data[0].password})
 })
 
+usersAPI.post('/getPublicationData',async (req,res)=>{
+    let usersCollection = req.app.get('usersCollection')
+    let articlesCollection = req.app.get('articlesCollection')
+    let data = {}
+
+    let total_articles_published = await articlesCollection.find({"author":req.body.email}).toArray()
+    if(total_articles_published)
+    {
+        data['total_articles_published'] = total_articles_published.length;
+    }
+
+    let total_article_views = 0;
+    let total_upVotes = 0;
+    let total_downVotes = 0;
+    let total_article_comments = 0;
+    for(let x in total_articles_published)
+    {
+        total_article_views += total_articles_published[x].views
+        total_upVotes += total_articles_published[x].upVotes
+        total_downVotes += total_articles_published[x].downVotes
+        total_article_comments += total_articles_published[x].comments.length
+    }
+    data['total_article_views'] = total_article_views;
+    data['total_upVotes'] = total_upVotes;
+    data['total_downVotes'] = total_downVotes;
+    data['total_article_comments'] = total_article_comments;
+    
+
+    let highest_single_view = {"count":0,"articleId":null};
+    let highest_single_upVotes = {"count":0,"articleId":null};
+    let highest_single_downVotes = {"count":0,"articleId":null};
+    let highest_single_comments = {"count":0,"articleId":null};
+
+    for(let x in total_articles_published)
+    {
+        if(total_articles_published[x].views > highest_single_view.count)
+        {
+            highest_single_view['count'] = total_articles_published[x].views;
+            highest_single_view['articleId'] = total_articles_published[x].articleId;
+        }
+        if(total_articles_published[x].upVotes > highest_single_upVotes.count)
+        {
+            highest_single_upVotes['count'] = total_articles_published[x].upVotes;
+            highest_single_upVotes['articleId'] = total_articles_published[x].articleId;
+        }
+        if(total_articles_published[x].downVotes > highest_single_downVotes.count)
+        {
+            highest_single_downVotes['count'] = total_articles_published[x].downVotes;
+            highest_single_downVotes['articleId'] = total_articles_published[x].articleId;
+        }
+        if(total_articles_published[x].comments > highest_single_comments.count)
+        {
+            highest_single_comments['count'] = total_articles_published[x].comments;
+            highest_single_comments['articleId'] = total_articles_published[x].articleId;
+        }
+    }
+
+    data['highest_single_view'] = highest_single_view;
+    data['highest_single_upVotes'] = highest_single_upVotes;
+    data['highest_single_downVotes'] = highest_single_downVotes;
+    data['highest_single_comments'] = highest_single_comments;
+    console.log(data)
+    res.send({"status":"true","data":data})
+
+})
 module.exports = usersAPI
