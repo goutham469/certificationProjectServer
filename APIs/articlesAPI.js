@@ -126,4 +126,33 @@ articlesAPI.get('/IncrementView',async (req,res)=>{
     res.send({"status":"successful"})
 })
 
+articlesAPI.post('/ChangeTitle',async (req,res)=>{
+    console.log(req.body)
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"title":req.body.changedTitle}})
+    res.send({"status":"true"})
+})
+
+
+articlesAPI.post('/ChangeCategory',async (req,res)=>{
+    console.log(req.body)
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"category":req.body.changedCategory}})
+    res.send({"status":"true"})
+})
+
+articlesAPI.post('/ChangeContent',async (req,res)=>{
+    console.log(req.body)
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"content":req.body.changedContent}})
+    res.send({"status":"true"})
+})
+
+articlesAPI.post('/DeleteArticle',async (req,res)=>{
+    console.log(req.body)
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.deleteOne({"articleId":req.body.articleId})
+    res.send({"status":"true"})
+})
+
 module.exports = articlesAPI;

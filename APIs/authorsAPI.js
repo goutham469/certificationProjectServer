@@ -123,4 +123,20 @@ authorsAPI.put('/UpdateActivityDownvotes',async (req,res)=>{
     res.send({"status":"true"})
 })
 
+authorsAPI.post('/getPublicationData',async (req,res)=>{
+    const authorsCollection = req.app.get('authorsCollection')
+
+    console.log(`${req.body.email} requested for profile Data`);
+    let data = await authorsCollection.find({"email":req.body.email}).toArray()
+    
+    if(data[0])
+    {
+        res.send({"publicationData":data[0]})
+    }
+    else
+    {
+        res.send({"status":false})
+    }
+})
+
 module.exports = authorsAPI

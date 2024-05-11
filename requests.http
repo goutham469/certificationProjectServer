@@ -79,6 +79,13 @@ Content-Type: application/json
     "type":"add",
     "articleId":2
 }
+###
+POST http://localhost:4000/Author/getPublicationData
+Content-Type: application/json
+
+{
+    "email":"uppinurigouthamreddy@gmail.com"
+}
 
 ### articles requests
 POST http://localhost:4000/articles/postArticle
@@ -174,3 +181,36 @@ GET http://localhost:4000/articles/upVoteNegative/?id=2
 GET http://localhost:4000/articles/downVote/?id=2
 ###
 GET http://localhost:4000/articles/downVoteNegative/?id=2
+
+
+###
+POST http://localhost:4000/articles/ChangeTitle
+Content-Type: application/json
+
+{
+    "articleId":105,
+    "changedTitle":"HTML5"
+}
+###
+POST http://localhost:4000/articles/ChangeCategory
+Content-Type: application/json
+
+{
+    "articleId":105,
+    "changedCategory":"web technologies"
+}
+###
+POST http://localhost:4000/articles/ChangeContent
+Content-Type: application/json
+
+{
+    "articleId":105,
+    "changedContent":"HTML : hypertext markup launguage ."
+}
+###
+POST http://localhost:4000/articles/DeleteArticle
+Content-Type: application/json
+
+{
+    "articleId":105
+}

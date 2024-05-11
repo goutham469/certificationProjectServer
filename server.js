@@ -20,6 +20,7 @@ mclient.connect(`${process.env.DATA_BASE_CONNECTION_URL}`).then(client=>{
     let authorsCollection = DB.collection('authors')
     let articlesCollection = DB.collection('articles')
     let articleCount = DB.collection('articleCount')
+    
 
     app.set("usersCollection",usersCollection)
     app.set("authorsCollection",authorsCollection)
