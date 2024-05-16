@@ -1,0 +1,7 @@
+POST http://localhost:4000/media/uploadImage
+Content-Type: application/json
+
+{
+    "image_url":"abcdef",
+    "image_alt":"abc"
+}

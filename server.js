@@ -5,6 +5,7 @@ const mclient = require('mongodb').MongoClient
 const usersAPI = require('./APIs/usersAPI')
 const authorsAPI = require('./APIs/authorsAPI')
 const articlesAPI = require('./APIs/articlesAPI')
+const imageAPI = require('./APIs/imageUpload')
 const cors = require('cors')
 
 require('dotenv').config()
@@ -35,6 +36,7 @@ app.get('/',(req,res)=>{
 app.use('/user',usersAPI)
 app.use('/author',authorsAPI)
 app.use('/articles',articlesAPI)
+app.use('/media',imageAPI)
 
 
 

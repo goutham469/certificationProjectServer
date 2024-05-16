@@ -78,7 +78,7 @@ authorsAPI.get('/getActivity',async (req,res)=>{
     {
         if(data[0])
         {
-            console.log(data[0])
+            // console.log(data[0])
             data = data[0]
             let obj = {
                 "upVotedArticles":data.upVotedArticles,
@@ -126,7 +126,7 @@ authorsAPI.put('/UpdateActivityDownvotes',async (req,res)=>{
 authorsAPI.post('/getPublicationData',async (req,res)=>{
     const authorsCollection = req.app.get('authorsCollection')
 
-    console.log(`${req.body.email} requested for profile Data`);
+    // console.log(`${req.body.email} requested for profile Data`);
     let data = await authorsCollection.find({"email":req.body.email}).toArray()
     
     if(data[0])

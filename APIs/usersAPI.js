@@ -126,7 +126,7 @@ usersAPI.post('/getPublicationData',async (req,res)=>{
     data['highest_single_upVotes'] = highest_single_upVotes;
     data['highest_single_downVotes'] = highest_single_downVotes;
     data['highest_single_comments'] = highest_single_comments;
-    console.log(data)
+    // console.log(data)
     res.send({"status":"true","data":data})
 
 })

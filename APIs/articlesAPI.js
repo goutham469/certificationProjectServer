@@ -29,7 +29,7 @@ articlesAPI.get('/getAll',async (req,res)=>{
 
     for(let x in data)
     {
-        await articlesCollection.updateOne({ "articleId": Number(data[x].articleId)},{ $inc: { "views": 0.5 } })
+        await articlesCollection.updateOne({ "articleId": Number(data[x].articleId)},{ $inc: { "views": 1 } })
     }
 
     res.send({"status":"success","articles":data})
@@ -71,14 +71,14 @@ articlesAPI.get('/getArticleId',async (req,res)=>{
     let articleCount = req.app.get('articleCount')
     let data = await articleCount.find().toArray()
     data = data[0]
-    console.log(data)
+    // console.log(data)
     if(data)
     {
         if(data.count)
         {
             
                 await articleCount.updateOne({"count":data.count},{$set:{"count":data.count+1}})
-                console.log(data.count)
+                // console.log(data.count)
                 res.send({"status":"true","count":data.count})
 
             
@@ -172,6 +172,22 @@ articlesAPI.post('/updateLastEdit',async(req,res)=>{
     console.log(`article with id : ${req.body.articleId} , last updated on ${cur_date} .`)
     await articlesCollection.updateOne({"articleId":req.body.articleId},{$set:{"lastUpdate":cur_date}})
     res.send({"status":"true"})
+})
+
+articlesAPI.get('/toUpdateContentSchema',async (req,res)=>{
+    let articlesCollection = req.app.get('articlesCollection')
+    await articlesCollection.updateMany(
+        { content: { $type: "string" } },
+        [
+          {
+            $set: {
+              content: [
+                { p: "$content" }
+              ]
+            }
+          }
+        ]
+      );
 })
 
 
